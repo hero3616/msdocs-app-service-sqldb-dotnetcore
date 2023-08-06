@@ -5,7 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add database context and cache
 builder.Services.AddDbContext<MyDatabaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnection")));
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnection"));
+    options.EnableDetailedErrors();
+    options.EnableSensitiveDataLogging();
+});
 builder.Services.AddDistributedMemoryCache();
 
 // Add services to the container.
