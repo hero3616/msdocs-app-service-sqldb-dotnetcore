@@ -6,12 +6,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add database context and cache
 builder.Services.AddDbContext<MyDatabaseContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"), opts => {
+        opts.EnableRetryOnFailure();
+    });
     options.EnableDetailedErrors();
     options.EnableSensitiveDataLogging();
 });
 
+// For local
 // builder.Services.AddDistributedMemoryCache();
+
+// For deployment
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
