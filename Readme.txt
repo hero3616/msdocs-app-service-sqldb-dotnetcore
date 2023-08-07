@@ -36,3 +36,13 @@ az webapp config connection-string delete `
     --resource-group "sandbox-cem-rg" `
     --name "msdocs-core-sql-tutorial1" `
     --setting-names "AZURE_SQL_CONNECTIONSTRING"
+
+Redis Cache connection
+- You must enable non-SSL connections under Settings -> Advanced settings (otherwise you have to use a proxy like stunnel)
+- You must enable public network access under Settings -> Private Endpoint
+- Both VS Code and redis-cli works
+
+redis-cli -h msdocs-core-sql-tutorial1-cache.redis.cache.windows.net -p 6379 -a B0OBftEV7BiysnaQ00Q4zboR3bdFLiOA2AzCaEKfQd8=
+> select 0
+> keys *
+> flushdb
